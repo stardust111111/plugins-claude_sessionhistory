@@ -10,7 +10,7 @@ A Claude Code mod that keeps a topic ledger for every session and shows it in a 
 ## Install
 
 ```
-/plugin install session-history --marketplace stardust111111/claude-session-history
+/plugin install session-history --marketplace stardust111111/plugins-claude_sessionhistory
 ```
 
-Answer `y` to add the marketplace, then pick a scope. In the Claude desktop app: click **+** next to the prompt, **Add plugins**, **Add marketplace**, **Add from a repository**, enter `stardust111111/claude-session-history`, then add **session-history**. Run `/reload-plugins` in sessions that were already open.
+Answer `y` to add the marketplace, then pick a scope. In the Claude desktop app: click **+** next to the prompt, **Add plugins**, **Add marketplace**, **Add from a repository**, enter `stardust111111/plugins-claude_sessionhistory`, then add **session-history**. Run `/reload-plugins` in sessions that were already open.
