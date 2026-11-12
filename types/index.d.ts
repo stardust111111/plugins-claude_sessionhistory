@@ -31,6 +31,8 @@ declare module 'claude-code' {
       sessions: Shaped<SessionOption[]>
       view: Shaped<Ledger | null>
       busy: string
+      menu: boolean
+      bars: boolean
     }
   }
 }

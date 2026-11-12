@@ -14,6 +14,8 @@ const collapsed = atom({ plugin: 'session-history', key: 'collapsed' } as const,
 const sessions = atom({ plugin: 'session-history', key: 'sessions' } as const, [] as SessionOption[], { shape: 'sessions-1' })
 const view = atom({ plugin: 'session-history', key: 'view' } as const, null as Ledger | null, { shape: 'view-2' })
 const busy = atom({ plugin: 'session-history', key: 'busy' } as const, '')
+const menu = atom({ plugin: 'session-history', key: 'menu' } as const, false)
+const bars = atom({ plugin: 'session-history', key: 'bars' } as const, true)
 
 let home = ''
 let ledger: Ledger | undefined
@@ -305,6 +307,8 @@ export const register: Register = on => {
     const opts = await read($, sessions)
     const shut = await read($, collapsed)
     const working = await read($, busy)
+    const menuOpen = await read($, menu)
+    const showBars = await read($, bars)
     const currentId = await $.session.id()
     const selected = (await read($, scope)) || currentId
 
@@ -358,10 +362,34 @@ export const register: Register = on => {
             <Text dimColor>
               {l.segments.length} runs · {dur(totalMs)} active · {totalMsgs} msgs
             </Text>
-            <Button key="toggle-all" plain onPress={() => update($, collapsed, () => (allShut ? [] : keys))}>
-              {allShut ? 'Expand all' : 'Collapse all'}
+            <Button key="kebab" plain onPress={() => update($, menu, v => !v)}>
+              {menuOpen ? '✕' : '⋮'}
             </Button>
           </Box>
+          {menuOpen && (
+            <Box key="menu" flexDirection="column" borderStyle="round" borderColor="subtle" paddingX={1} alignSelf="flex-end">
+              <Button
+                key="menu-collapse"
+                plain
+                onPress={async () => {
+                  await update($, collapsed, () => (allShut ? [] : keys))
+                  await update($, menu, () => false)
+                }}
+              >
+                {allShut ? 'Expand all' : 'Collapse all'}
+              </Button>
+              <Button
+                key="menu-bars"
+                plain
+                onPress={async () => {
+                  await update($, bars, v => !v)
+                  await update($, menu, () => false)
+                }}
+              >
+                {showBars ? 'Hide volume bars' : 'Show volume bars'}
+              </Button>
+            </Box>
+          )}
           {l.segments.map((s, i) => {
             const k = `run-${i}`
             const isOpen = !shut.includes(k)
@@ -381,7 +409,7 @@ export const register: Register = on => {
                     {isNow ? ' · now' : ''}
                   </Text>
                 </Button>
-                {bar(s.activeMs / maxMs, `bar-${k}`)}
+                {showBars && bar(s.activeMs / maxMs, `bar-${k}`)}
                 {isOpen && (s.notes ?? []).length > 0 && (
                   <Box flexDirection="column" paddingLeft={2}>
                     {(s.notes ?? []).map((n, j) => (
