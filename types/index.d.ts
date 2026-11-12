@@ -4,6 +4,7 @@ export type Segment = {
   end: number
   activeMs: number
   msgs: number
+  notes?: string[]
 }
 
 export type Ledger = {
@@ -13,29 +14,23 @@ export type Ledger = {
   lastAt: number
   lastMsg: string
   segments: Segment[]
+  summary?: string
+  summaryAtMsgs?: number
 }
 
-export type TopicTotal = { name: string; minutes: number; msgs: number }
+export type SessionOption = { id: string; title: string; lastAt: number }
 
-export type Row = {
-  id: string
-  title: string
-  project: string
-  lastAt: number
-  lastMsg: string
-  current: string
-  totalMin: number
-  topics: TopicTotal[]
-}
-
-export type Tab = 'recent' | 'volume'
+export type Tab = 'timeline' | 'summary'
 
 declare module 'claude-code' {
   interface PluginState {
     'session-history': {
-      rows: Shaped<Row[]>
       tab: Tab
-      status: string
+      scope: string
+      collapsed: Shaped<string[]>
+      sessions: Shaped<SessionOption[]>
+      view: Shaped<Ledger | null>
+      busy: string
     }
   }
 }
