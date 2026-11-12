@@ -1,0 +1,5 @@
+{
+  "name": "session-history",
+  "owner": { "name": "Ivan Sunguroff" },
+  "plugins": [{ "name": "session-history", "source": "./", "description": "A topic ledger per Claude Code session, with a pane showing recent sessions and topic volume" }]
+}
