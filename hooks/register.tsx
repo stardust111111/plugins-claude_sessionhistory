@@ -15,7 +15,7 @@ const sessions = atom({ plugin: 'session-history', key: 'sessions' } as const, [
 const view = atom({ plugin: 'session-history', key: 'view' } as const, null as Ledger | null, { shape: 'view-2' })
 const busy = atom({ plugin: 'session-history', key: 'busy' } as const, '')
 const menu = atom({ plugin: 'session-history', key: 'menu' } as const, false)
-const bars = atom({ plugin: 'session-history', key: 'bars' } as const, true)
+const bars = atom({ plugin: 'session-history', key: 'bars' } as const, false)
 
 let home = ''
 let ledger: Ledger | undefined
