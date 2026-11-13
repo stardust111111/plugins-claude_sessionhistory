@@ -208,7 +208,6 @@ async function record($: EngineInterface, text: string, forced?: string) {
     if (cur) cur.end = now
     seg = { topic, start: now, end: now, activeMs: 0, msgs: 1, notes: [] }
     l.segments.push(seg)
-    $.ui.toast(`Topic: ${topic}`)
   }
   if (note) {
     const notes = seg.notes ?? []

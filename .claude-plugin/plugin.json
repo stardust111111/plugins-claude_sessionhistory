@@ -1,1 +1,1 @@
-{ "name": "session-history", "version": "0.3.1", "description": "Keeps a topic ledger per session (an MD file) and shows recent sessions and topic volume in a pane", "types": "./types/index.d.ts" }
+{ "name": "session-history", "version": "0.3.2", "description": "Keeps a topic ledger per session (an MD file) and shows recent sessions and topic volume in a pane", "types": "./types/index.d.ts" }
